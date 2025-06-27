@@ -8,4 +8,11 @@ export default defineConfig({
     react(),
     tailwindcss(),
   ],
+  resolve: {
+    alias: {
+      '@mw': '/src',
+      '@mw-ui-components': '/src/ui-components/index.tsx',
+      '@mw-hooks': '/src/hooks/index.tsx',
+    },
+  },
 })
