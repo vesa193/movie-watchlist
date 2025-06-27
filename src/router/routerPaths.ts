@@ -1,6 +1,6 @@
 export const RouterPaths = {
     Root: '/',
-    MovieDetails: '/movie/:id',
+    MovieDetails: '/movie/:movieId',
     AddMovie: '/movie/add',
     Favorites: '/favorites',
     NotFound: '/404',

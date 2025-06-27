@@ -1,0 +1,68 @@
+import type { Movie } from '@mw/hooks/useMovies';
+import clsx from 'clsx';
+import type React from 'react';
+import { Link } from 'react-router-dom';
+
+type MovieCardProps = Movie & {
+    onLike: (_id: number) => void;
+};
+
+export const MovieCard = ({
+    id,
+    title,
+    genre,
+    status,
+    year,
+    poster,
+    rating,
+    runtime,
+    onLike,
+}: MovieCardProps) => {
+    const handleOnLike = (
+        event: React.MouseEvent<HTMLDivElement, MouseEvent>,
+    ) => {
+        event.stopPropagation();
+        onLike(id);
+    };
+
+    return (
+        <div className="group relative">
+            <Link to={`/movie/${id}`}>
+                <img
+                    alt={title}
+                    src={poster}
+                    className="aspect-square w-full rounded-md bg-gray-200 object-cover group-hover:opacity-75 lg:aspect-auto lg:h-100"
+                />
+            </Link>
+            <div className="flex justify-end p-1 m-0" onClick={handleOnLike}>
+                Like 🖤
+            </div>
+            <div className="mt-4 flex justify-between">
+                <div>
+                    <h3 className="text-sm text-black-700">
+                        <h4 className="font-medium text-gray-900">{title}</h4>
+                    </h3>
+                    <p className="mt-1 text-sm text-gray-500">{genre}</p>
+                    <p className="mt-1 text-sm text-gray-500">{year}</p>
+                </div>
+                <div className="flex flex-col items-end">
+                    <p
+                        className={clsx(
+                            'text-sm',
+                            'font-medium',
+                            'text-gray-900',
+                            {
+                                'text-green-600': status === 'Watched',
+                                'text-yellow-600': status === 'Planned',
+                            },
+                        )}
+                    >
+                        {status}
+                    </p>
+                    <p className="mt-1 text-sm text-gray-500">{`${Math.floor(runtime / 60)}h`}</p>
+                    <p className="mt-1 text-sm text-gray-500">{rating}</p>
+                </div>
+            </div>
+        </div>
+    );
+};
