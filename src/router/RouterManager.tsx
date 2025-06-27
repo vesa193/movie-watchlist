@@ -24,6 +24,10 @@ export const RouterManager = () => {
                     path: RouterPaths.AddMovie,
                     element: <AddMoviePage />,
                 },
+                {
+                    path: RouterPaths.Favorites,
+                    element: <AddMoviePage />,
+                },
             ],
         },
     ]);
