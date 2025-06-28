@@ -1,17 +1,5 @@
+import type { Movie } from '@mw/types';
 import { useCallback, useEffect, useState } from 'react';
-
-export type Movie = {
-    id: number;
-    title: string;
-    genre: string;
-    status: string;
-    year?: number;
-    poster: string;
-    rating: number;
-    runtime?: number;
-    liked: boolean;
-    synopsis?: string;
-};
 
 export const useMovies = () => {
     const [movies, setMovies] = useState<Movie[]>(
@@ -32,21 +20,6 @@ export const useMovies = () => {
             .finally(() => setIsLoading(false));
     }, [setIsLoading, setError, setMovies]);
 
-    const handleOnLike = (movieId: number) => {
-        const moviesList = [...movies];
-        const movie = movies.find(
-            (movieItem: Movie) => movieItem.id === movieId,
-        );
-        if (movie) {
-            movie.liked = !movie?.liked;
-        }
-
-        console.log('movieLiked', movieId, movie?.liked);
-        localStorage.removeItem('movies');
-        localStorage.setItem('movies', JSON.stringify(moviesList));
-        setMovies(moviesList);
-    };
-
     useEffect(() => {
         if (movies?.length === 0) {
             getMovies();
@@ -58,6 +31,5 @@ export const useMovies = () => {
         isLoadingMovies: isLoading,
         error,
         setMovies,
-        handleOnLike,
     };
 };

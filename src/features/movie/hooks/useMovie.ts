@@ -1,8 +1,6 @@
-import { useMovies, type Movie } from '@mw/hooks/useMovies';
+import type { Movie } from '@mw/types';
 
-export const useMovie = (movieId: number) => {
-    const { movies } = useMovies();
-
+export const useMovie = (movies: Movie[], movieId: number) => {
     const movie = movies.find((movieItem: Movie) => movieItem.id === movieId);
 
     return movie;

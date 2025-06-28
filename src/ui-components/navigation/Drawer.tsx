@@ -2,6 +2,7 @@ import mwLogo from '@mw/assets/large.png';
 import { RouterPaths } from '@mw/router/routerPaths';
 import clsx from 'clsx';
 import { useState, useTransition } from 'react';
+import { BsArrowLeft, BsArrowRight } from 'react-icons/bs';
 import { NavLink, useLocation } from 'react-router-dom';
 
 export const Drawer = () => {
@@ -21,10 +22,10 @@ export const Drawer = () => {
         >
             <div className={clsx('sticky', 'top-0')}>
                 <span
-                    className="font-bold text-zinc-950 cursor-pointer"
+                    className="flex justify-end font-bold text-zinc-950 cursor-pointer text-2xl m-5"
                     onClick={() => startTransition(() => setIsOpen(!isOpen))}
                 >
-                    {!isOpen ? '>' : '<'}
+                    {isOpen ? <BsArrowLeft /> : <BsArrowRight />}
                 </span>
                 <NavLink
                     to={RouterPaths.Root}

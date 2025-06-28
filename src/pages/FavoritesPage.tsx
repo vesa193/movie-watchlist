@@ -1,22 +1,10 @@
+import { useLikeMovie } from '@mw/features/movie/hooks/useLikeMovie';
 import { MovieCard } from '@mw/features/movie/MovieCard';
-import { useMovies, type Movie } from '@mw/hooks/useMovies';
+import { useMovies } from '@mw/hooks/useMovies';
 
 const FavoritesPage = () => {
     const { movies, setMovies } = useMovies();
-
-    const handleOnLike = (movieId: number) => {
-        const moviesList = [...movies];
-        const movie = moviesList.find(
-            (movieItem: Movie) => movieItem.id === movieId,
-        );
-        if (movie) {
-            movie.liked = !movie?.liked;
-        }
-
-        console.log('movieLiked', movieId, movie?.liked);
-        localStorage.setItem('movies', JSON.stringify(moviesList));
-        setMovies(moviesList);
-    };
+    const { handleOnLike } = useLikeMovie(movies, setMovies);
 
     return (
         <div className="p-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-4">

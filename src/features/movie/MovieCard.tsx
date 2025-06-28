@@ -1,4 +1,4 @@
-import type { Movie } from '@mw/hooks/useMovies';
+import type { Movie } from '@mw/types';
 import clsx from 'clsx';
 import { Link } from 'react-router-dom';
 

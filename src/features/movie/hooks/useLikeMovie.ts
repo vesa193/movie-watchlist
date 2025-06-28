@@ -1,20 +1,23 @@
-import { useMovies, type Movie } from '@mw/hooks/useMovies';
+import type { Movie } from '@mw/types';
+import { useCallback } from 'react';
 
-export const useLikeMovie = () => {
-    const { movies, setMovies } = useMovies();
+export const useLikeMovie = (
+    movies: Movie[],
+    setMovies: (_movies: Movie[]) => void,
+) => {
+    const handleOnLike = useCallback(
+        (movieId: number) => {
+            const updatedMovies = movies.map((movie) =>
+                movie.id === movieId
+                    ? { ...movie, liked: !movie.liked }
+                    : movie,
+            );
 
-    const handleOnLike = (movieID: number) => {
-        const moviesList = [...movies];
-        const movieItem = moviesList.find((mv: Movie) => mv.id === movieID);
-        if (movieItem) {
-            movieItem.liked = !movieItem?.liked;
-        }
-
-        console.log('movieLiked', movieID, movieItem?.liked);
-        localStorage.setItem('movies', JSON.stringify(moviesList));
-        window.location.reload();
-        setMovies(moviesList);
-    };
+            localStorage.setItem('movies', JSON.stringify(updatedMovies));
+            setMovies(updatedMovies);
+        },
+        [movies, setMovies],
+    );
 
     return { handleOnLike };
 };
