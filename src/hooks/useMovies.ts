@@ -5,11 +5,12 @@ export type Movie = {
     title: string;
     genre: string;
     status: string;
-    year: number;
+    year?: number;
     poster: string;
     rating: number;
-    runtime: number;
+    runtime?: number;
     liked: boolean;
+    synopsis?: string;
 };
 
 export const useMovies = () => {
@@ -25,16 +26,38 @@ export const useMovies = () => {
             .then((res) => res.json())
             .then((moviesList: Movie[]) => {
                 localStorage.setItem('movies', JSON.stringify(moviesList));
-                setMovies(moviesList);
+                setMovies((prev) => [...prev, ...moviesList]);
             })
             .catch((err: Error) => setError(err.message))
             .finally(() => setIsLoading(false));
     }, [setIsLoading, setError, setMovies]);
 
+    const handleOnLike = (movieId: number) => {
+        const moviesList = [...movies];
+        const movie = movies.find(
+            (movieItem: Movie) => movieItem.id === movieId,
+        );
+        if (movie) {
+            movie.liked = !movie?.liked;
+        }
+
+        console.log('movieLiked', movieId, movie?.liked);
+        localStorage.removeItem('movies');
+        localStorage.setItem('movies', JSON.stringify(moviesList));
+        setMovies(moviesList);
+    };
+
     useEffect(() => {
-        if (movies?.length) return;
-        getMovies();
+        if (movies?.length === 0) {
+            getMovies();
+        }
     }, [getMovies, movies?.length]);
 
-    return { movies, isLoadingMovies: isLoading, error, setMovies };
+    return {
+        movies,
+        isLoadingMovies: isLoading,
+        error,
+        setMovies,
+        handleOnLike,
+    };
 };

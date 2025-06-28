@@ -1,21 +1,23 @@
 import { MovieCard } from '@mw/features/movie/MovieCard';
 import { useMovies, type Movie } from '@mw/hooks/useMovies';
+import { useState } from 'react';
 
 const MoviesPage = () => {
-    const { movies, isLoadingMovies, setMovies } = useMovies();
-    const handleOnLike = (movieId: number) => {
-        const moviesList = [...movies];
-        const movie = moviesList.find(
-            (movieItem: Movie) => movieItem.id === movieId,
-        );
-        if (movie) {
-            movie.liked = !movie?.liked;
-        }
+    const { movies, isLoadingMovies, handleOnLike } = useMovies();
+    // const handleOnLike = (movieId: number) => {
+    //     const moviesList = [...movies];
+    //     const movie = movies.find(
+    //         (movieItem: Movie) => movieItem.id === movieId,
+    //     );
+    //     if (movie) {
+    //         movie.liked = !movie?.liked;
+    //     }
 
-        console.log('movieLiked', movieId, movie?.liked);
-        localStorage.setItem('movies', JSON.stringify(moviesList));
-        setMovies(moviesList);
-    };
+    //     console.log('movieLiked', movieId, movie?.liked);
+    //     localStorage.removeItem('movies');
+    //     localStorage.setItem('movies', JSON.stringify(moviesList));
+    //     setMovies(moviesList);
+    // };
 
     if (isLoadingMovies) {
         return <div>Loading...</div>;

@@ -39,9 +39,9 @@ export const MovieCard = ({
             </div>
             <div className="mt-4 flex justify-between">
                 <div>
-                    <h3 className="text-sm text-black-700">
-                        <h4 className="font-medium text-gray-900">{title}</h4>
-                    </h3>
+                    <h4 className="text-sm text-black-700 line-clamp-2 font-mono font-semibold">
+                        {title}
+                    </h4>
                     <p className="mt-1 text-sm text-gray-500">{genre}</p>
                     <p className="mt-1 text-sm text-gray-500">{year}</p>
                 </div>
@@ -59,7 +59,7 @@ export const MovieCard = ({
                     >
                         {status}
                     </p>
-                    <p className="mt-1 text-sm text-gray-500">{`${Math.floor(runtime / 60)}h`}</p>
+                    <p className="mt-1 text-sm text-gray-500">{`${runtime && Math.floor(runtime / 60)}h`}</p>
                     <p className="mt-1 text-sm text-gray-500">{rating}</p>
                 </div>
             </div>

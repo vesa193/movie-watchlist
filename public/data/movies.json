@@ -8,7 +8,8 @@
         "poster": "https://m.media-amazon.com/images/M/MV5BMDFkYTc0MGEtZmNhMC00ZDIzLWFmNTEtODM1ZmRlYWMwMWFmXkEyXkFqcGdeQXVyMTMxODk2OTU@._V1_SX300.jpg",
         "rating": 4.5,
         "runtime": 142,
-        "liked": true
+        "liked": true,
+        "synopsis": "Two imprisoned men bond over a number of years, finding solace and eventual redemption through acts of common decency."
     },
     {
         "id": 1,
@@ -19,7 +20,8 @@
         "poster": "https://m.media-amazon.com/images/I/5172EXdQL6L._AC_.jpg",
         "rating": 4.5,
         "runtime": 152,
-        "liked": true
+        "liked": true,
+        "synopsis": "A group of young criminals plan a bank robbery and escape with their hostages."
     },
     {
         "id": 2,
@@ -30,7 +32,8 @@
         "poster": "https://m.media-amazon.com/images/M/MV5BMTMxNTMwODM0NF5BMl5BanBnXkFtZTcwODAyMTk2Mw@@._V1_SX300.jpg",
         "rating": 4.5,
         "runtime": 140,
-        "liked": false
+        "liked": false,
+        "synopsis": "The Dark Knight of Gotham City begins his war on crime with his first major enemy being the Joker."
     },
     {
         "id": 3,
@@ -41,7 +44,8 @@
         "poster": "https://m.media-amazon.com/images/M/MV5BMjAxMzY3NjcxNF5BMl5BanBnXkFtZTcwNTI5OTM0Mw@@._V1_SX300.jpg",
         "rating": 4.5,
         "runtime": 148,
-        "liked": false
+        "liked": false,
+        "synopsis": "A thief who steals corporate secrets through use of dream-sharing technology is given the inverse task of planting an idea into the mind of a C.E.O."
     },
     {
         "id": 4,
@@ -52,7 +56,8 @@
         "poster": "https://m.media-amazon.com/images/I/71JC2qvPx5L._AC_SY879_.jpg",
         "rating": 4.5,
         "runtime": 169,
-        "liked": false
+        "liked": false,
+        "synopsis": "A team of explorers travel through a wormhole in space in an attempt to ensure humanity's survival."
     },
     {
         "id": 5,
@@ -63,7 +68,8 @@
         "poster": "https://m.media-amazon.com/images/M/MV5BNzQzOTk3OTAtNDQ0Zi00ZTVkLWI0MTEtMDllZjNkYzNjNTc4L2ltYWdlXkEyXkFqcGdeQXVyNjU0OTQ0OTY@._V1_SX300.jpg",
         "rating": 4.5,
         "runtime": 136,
-        "liked": false
+        "liked": false,
+        "synopsis": "A computer hacker learns from mysterious rebels about the true nature of his reality and his role in it."
     },
     {
         "id": 6,
@@ -74,7 +80,8 @@
         "poster": "https://m.media-amazon.com/images/I/71rUAskFlaL._AC_SY879_.jpg",
         "rating": 4.5,
         "runtime": 145,
-        "liked": false
+        "liked": false,
+        "synopsis": "A medical student and a rebel leader struggle during a high school class trial in the 1970s."
     },
     {
         "id": 7,
@@ -85,7 +92,8 @@
         "poster": "https://m.media-amazon.com/images/M/MV5BNDYxNjQyMjAtNTdiOS00NGYwLWFmNTAtNThmYjU5ZGI2YTI1XkEyXkFqcGdeQXVyMTMxODk2OTU@._V1_SX300.jpg",
         "rating": 4.5,
         "runtime": 180,
-        "liked": false
+        "liked": false,
+        "synopsis": "Based on the true story of Jordan Belfort, from his rise to a wealthy stock-broker living the high life to his fall involving crime, corruption and the federal government."
     },
     {
         "id": 8,
@@ -96,6 +104,7 @@
         "poster": "https://m.media-amazon.com/images/I/51wVoyHx9DL._AC_UL320_.jpg",
         "rating": 4.2,
         "runtime": 97,
-        "liked": false
+        "liked": false,
+        "synopsis": "A young man from a small town is sent to a major city to become a part of the local football team."
     }
 ]

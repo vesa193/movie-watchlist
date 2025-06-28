@@ -5,6 +5,7 @@ import MovieDetails from '@mw/pages/MovieDetailsPage';
 import MoviesPage from '@mw/pages/MoviesPage';
 import AddMoviePage from '@mw/pages/AddMoviePage';
 import ErrorPage from '@mw/pages/ErrorPage';
+import FavoritesPage from '@mw/pages/FavoritesPage';
 
 export const RouterManager = () => {
     const router = createBrowserRouter([
@@ -26,7 +27,7 @@ export const RouterManager = () => {
                 },
                 {
                     path: RouterPaths.Favorites,
-                    element: <AddMoviePage />,
+                    element: <FavoritesPage />,
                 },
             ],
         },
