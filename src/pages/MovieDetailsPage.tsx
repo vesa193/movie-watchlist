@@ -6,7 +6,7 @@ import type { Movie } from '@mw/types';
 import { Button } from '@mw/ui-components/buttons/Button';
 import { SelectField } from '@mw/ui-components/form-fields/SelectField';
 import { TextField } from '@mw/ui-components/form-fields/TextField';
-import { useLayoutEffect, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 const MovieDetailsPage = () => {
@@ -25,29 +25,66 @@ const MovieDetailsPage = () => {
     const [isDeleting, setIsDeleting] = useState(false);
     const dialog = useRef<HTMLDialogElement | null>(null);
 
+    const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setFormData((prev) => ({
+            ...prev,
+            [e.target.name]: e.target.value,
+        }));
+    };
+
     if (!movieId || !movie) {
         return <p>Movie not found!</p>;
     }
 
     return (
         <div className="grid justify-center gap-5">
-            {!isEditing && <MovieDetails movie={movie} onLike={handleOnLike} />}
+            {!isEditing && (
+                <MovieDetails
+                    movie={movie}
+                    onLike={handleOnLike}
+                    onChange={handleOnChange}
+                />
+            )}
             {isEditing && (
                 <form
                     id="movie-form"
                     className="min-w-[320px] mt-20 grid gap-4 border-1 border-gray-200 p-6"
                     onSubmit={() => setIsEditing(false)}
                 >
-                    <TextField label="Title" value={formData.title} />
-                    <TextField label="Genre" value={formData.genre} />
-                    <TextField label="Status" value={formData.status} />
-                    <TextField label="Synopsis" value={formData.synopsis} />
-                    <TextField label="Poster" value={formData.poster} />
-                    <SelectField label="Status">
+                    <TextField
+                        label="Title"
+                        value={formData.title}
+                        onChange={handleOnChange}
+                    />
+                    <TextField
+                        label="Genre"
+                        value={formData.genre}
+                        onChange={handleOnChange}
+                    />
+                    <TextField
+                        label="Status"
+                        value={formData.status}
+                        onChange={handleOnChange}
+                    />
+                    <TextField
+                        label="Synopsis"
+                        value={formData.synopsis}
+                        onChange={handleOnChange}
+                    />
+                    <TextField
+                        label="Poster"
+                        value={formData.poster}
+                        onChange={handleOnChange}
+                    />
+                    <SelectField label="Status" value={formData.status}>
                         <option value="Watched">Watched</option>
                         <option value="Planned">Planned</option>
                     </SelectField>
-                    <SelectField label="Liked">
+                    <SelectField
+                        label="Liked"
+                        value={String(formData.liked)}
+                        onSelect={handleOnChange}
+                    >
                         <option value="true">Yes</option>
                         <option value="false">No</option>
                     </SelectField>
