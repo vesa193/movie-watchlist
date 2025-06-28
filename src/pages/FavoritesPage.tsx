@@ -14,6 +14,7 @@ const FavoritesPage = () => {
                     <MovieCard
                         key={movie.id}
                         {...movie}
+                        isLikeVisible={false}
                         onLike={handleOnLike}
                     />
                 ))}

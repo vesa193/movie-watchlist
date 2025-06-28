@@ -13,19 +13,27 @@ export const Drawer = () => {
     return (
         <nav
             className={clsx(
+                'flex',
+                'flex-col',
                 'bg-gray-50',
                 'p-4',
-                { 'w-[max-content]': !isOpen },
+                { 'w-[130px]': !isOpen },
                 { 'w-[200px]': isOpen },
                 'h-[100%]',
             )}
         >
             <div className={clsx('sticky', 'top-0')}>
                 <span
-                    className="flex justify-end font-bold text-zinc-950 cursor-pointer text-2xl m-5"
+                    className="flex justify-end font-bold text-zinc-950 cursor-pointer m-5"
                     onClick={() => startTransition(() => setIsOpen(!isOpen))}
                 >
-                    {isOpen ? <BsArrowLeft /> : <BsArrowRight />}
+                    <div className="flex gap-2">
+                        {isOpen && <BsArrowLeft className={clsx('text-2xl')} />}
+                        <p>{isOpen ? 'Close' : 'Open'}</p>
+                        {!isOpen && (
+                            <BsArrowRight className={clsx('text-2xl')} />
+                        )}
+                    </div>
                 </span>
                 <NavLink
                     to={RouterPaths.Root}
@@ -36,7 +44,7 @@ export const Drawer = () => {
                     <img
                         src={mwLogo}
                         alt="Movie Watchlist Logo"
-                        width={80}
+                        width={100}
                         draggable={false}
                     />
                 </NavLink>
@@ -51,8 +59,28 @@ export const Drawer = () => {
                         'text-zinc-950',
                     )}
                 >
+                    <NavLink to={RouterPaths.Root}>
+                        <li
+                            className={clsx(
+                                { 'font-bold': pathname === RouterPaths.Root },
+                                'cursor-pointer',
+                            )}
+                        >
+                            Home
+                        </li>
+                    </NavLink>
                     <NavLink to={RouterPaths.Favorites}>
-                        <li>Favorites</li>
+                        <li
+                            className={clsx(
+                                {
+                                    'font-bold':
+                                        pathname === RouterPaths.Favorites,
+                                },
+                                'cursor-pointer',
+                            )}
+                        >
+                            Favorites
+                        </li>
                     </NavLink>
                 </ul>
             </div>

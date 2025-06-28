@@ -3,6 +3,7 @@ import clsx from 'clsx';
 import { Link } from 'react-router-dom';
 
 type MovieCardProps = Movie & {
+    isLikeVisible?: boolean;
     onLike: (_id: number) => void;
 };
 
@@ -16,6 +17,7 @@ export const MovieCard = ({
     rating,
     runtime,
     liked,
+    isLikeVisible = true,
     onLike,
 }: MovieCardProps) => {
     const handleOnLike = () => {
@@ -31,12 +33,14 @@ export const MovieCard = ({
                     className="aspect-square w-full rounded-md bg-gray-200 object-cover group-hover:opacity-75 lg:aspect-auto lg:h-100"
                 />
             </Link>
-            <div
-                className="flex justify-end p-1 m-0 cursor-pointer"
-                onClick={handleOnLike}
-            >
-                {!liked ? 'Like 🖤' : 'Unlike 💙'}
-            </div>
+            {isLikeVisible && (
+                <div
+                    className="flex justify-end p-1 m-0 cursor-pointer"
+                    onClick={handleOnLike}
+                >
+                    {!liked ? 'Like 🖤' : 'Unlike 💙'}
+                </div>
+            )}
             <div className="mt-4 flex justify-between">
                 <div>
                     <h4 className="text-sm text-black-700 line-clamp-2 font-mono font-semibold">
