@@ -1,6 +1,5 @@
 import type { Movie } from '@mw/hooks/useMovies';
 import clsx from 'clsx';
-import type React from 'react';
 import { Link } from 'react-router-dom';
 
 type MovieCardProps = Movie & {
@@ -16,12 +15,10 @@ export const MovieCard = ({
     poster,
     rating,
     runtime,
+    liked,
     onLike,
 }: MovieCardProps) => {
-    const handleOnLike = (
-        event: React.MouseEvent<HTMLDivElement, MouseEvent>,
-    ) => {
-        event.stopPropagation();
+    const handleOnLike = () => {
         onLike(id);
     };
 
@@ -34,8 +31,11 @@ export const MovieCard = ({
                     className="aspect-square w-full rounded-md bg-gray-200 object-cover group-hover:opacity-75 lg:aspect-auto lg:h-100"
                 />
             </Link>
-            <div className="flex justify-end p-1 m-0" onClick={handleOnLike}>
-                Like 🖤
+            <div
+                className="flex justify-end p-1 m-0 cursor-pointer"
+                onClick={handleOnLike}
+            >
+                {!liked ? 'Like 🖤' : 'Unlike 💙'}
             </div>
             <div className="mt-4 flex justify-between">
                 <div>

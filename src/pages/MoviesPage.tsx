@@ -1,22 +1,30 @@
 import { MovieCard } from '@mw/features/movie/MovieCard';
-import { useMovies } from '@mw/hooks/useMovies';
+import { useMovies, type Movie } from '@mw/hooks/useMovies';
 
 const MoviesPage = () => {
-    const { movies, isLoading } = useMovies();
-    console.log('movies', movies);
+    const { movies, isLoadingMovies, setMovies } = useMovies();
+    const handleOnLike = (movieId: number) => {
+        const moviesList = [...movies];
+        const movie = moviesList.find(
+            (movieItem: Movie) => movieItem.id === movieId,
+        );
+        if (movie) {
+            movie.liked = !movie?.liked;
+        }
 
-    if (isLoading) {
+        console.log('movieLiked', movieId, movie?.liked);
+        localStorage.setItem('movies', JSON.stringify(moviesList));
+        setMovies(moviesList);
+    };
+
+    if (isLoadingMovies) {
         return <div>Loading...</div>;
     }
 
     return (
         <div className="p-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-4">
             {movies.map((movie) => (
-                <MovieCard
-                    key={movie.id}
-                    {...movie}
-                    onLike={(movieId) => console.log('movieId', movieId)}
-                />
+                <MovieCard key={movie.id} {...movie} onLike={handleOnLike} />
             ))}
         </div>
     );

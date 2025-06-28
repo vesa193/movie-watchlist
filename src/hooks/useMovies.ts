@@ -9,6 +9,7 @@ export type Movie = {
     poster: string;
     rating: number;
     runtime: number;
+    liked: boolean;
 };
 
 export const useMovies = () => {
@@ -31,8 +32,9 @@ export const useMovies = () => {
     }, [setIsLoading, setError, setMovies]);
 
     useEffect(() => {
+        if (movies?.length) return;
         getMovies();
-    }, [getMovies]);
+    }, [getMovies, movies?.length]);
 
-    return { movies, isLoading, error, setMovies };
+    return { movies, isLoadingMovies: isLoading, error, setMovies };
 };
