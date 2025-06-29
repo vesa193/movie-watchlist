@@ -43,6 +43,7 @@ const MovieDetailsPage = () => {
         localStorage.setItem('movies', JSON.stringify(updatedMovies));
         setMovies(updatedMovies);
         setIsEditing(false);
+        alert('Movie updated successfully');
     };
 
     const handleDeleteMovie = () => {
@@ -52,6 +53,7 @@ const MovieDetailsPage = () => {
         localStorage.setItem('movies', JSON.stringify(updatedMovies));
         setMovies(updatedMovies);
         setIsDeleting(false);
+        alert('Movie deleted successfully');
     };
 
     if (!movieId || !movie) {

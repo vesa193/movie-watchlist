@@ -5,21 +5,24 @@ export const useForm = <T>(intialValues: Partial<T>) => {
     const [error, setError] = useState<Partial<T>>({});
 
     const validate = (name: string, value: string) => {
+        const errorObj: Record<string, string> = {};
         if (name === 'title') {
             if (value.length === 0) {
-                setError((prev) => ({ ...prev, title: 'Title is required' }));
+                errorObj.title = 'Title is required';
             }
 
             if (value.length < 3) {
-                setError((prev) => ({ ...prev, title: 'Title is too short' }));
+                errorObj.title = 'Title is too short';
             }
         }
 
         if (name === 'genre') {
             if (value.length === 0) {
-                setError((prev) => ({ ...prev, title: 'Genre is required' }));
+                errorObj.genre = 'Genre is required';
             }
         }
+
+        return errorObj;
     };
 
     const handleOnChange = (
@@ -38,5 +41,5 @@ export const useForm = <T>(intialValues: Partial<T>) => {
         setFormData(intialValues);
     };
 
-    return { formData, error, handleOnChange, handleReset, validate };
+    return { formData, error, setError, handleOnChange, handleReset, validate };
 };

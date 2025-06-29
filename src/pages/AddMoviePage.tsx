@@ -9,19 +9,18 @@ import type React from 'react';
 
 const AddMoviePage = () => {
     const { movies, setMovies } = useMovies();
-    const { formData, error, handleOnChange, handleReset, validate } =
-        useForm<Movie>({
-            id: 0,
-            title: '',
-            genre: 'Action',
-            status: '',
-            year: 0,
-            poster: '',
-            rating: 0,
-            runtime: 0,
-            liked: false,
-            synopsis: '',
-        });
+    const { formData, error, handleOnChange, handleReset } = useForm<Movie>({
+        id: 0,
+        title: '',
+        genre: 'Action',
+        status: 'Planned',
+        year: 1900,
+        poster: '',
+        rating: 1,
+        runtime: 100,
+        liked: false,
+        synopsis: '',
+    });
 
     const handleOnSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -30,7 +29,7 @@ const AddMoviePage = () => {
             id: Date.now(),
             title: formData.title ?? '',
             genre: formData.genre ?? 'Action',
-            status: formData.status ?? '',
+            status: formData.status ?? 'Planned',
             poster: formData.poster ?? '',
             rating: formData.rating ?? 0,
             runtime: formData.runtime ?? 0,
@@ -38,18 +37,15 @@ const AddMoviePage = () => {
             synopsis: formData.synopsis ?? '',
         };
 
-        validate('title', createdMovie.title);
-        validate('genre', createdMovie.genre);
-
-        error.title && alert(error.title);
-        error.genre && alert(error.genre);
-
-        if (!error.title && !error.genre) {
-            const updatedMovies = [...movies, createdMovie];
-            localStorage.setItem('movies', JSON.stringify(updatedMovies));
-            setMovies(updatedMovies);
-            handleReset();
+        if (!formData.title || !formData.genre) {
+            return;
         }
+
+        const updatedMovies = [...movies, createdMovie];
+        localStorage.setItem('movies', JSON.stringify(updatedMovies));
+        setMovies(updatedMovies);
+        handleReset();
+        alert('Movie added successfully');
     };
 
     return (
@@ -61,7 +57,7 @@ const AddMoviePage = () => {
             >
                 <TextField
                     name="title"
-                    label="Title"
+                    label="Title*"
                     value={formData.title}
                     onChange={handleOnChange}
                     placeholder="eg. The Shawshank Redemption"
@@ -69,7 +65,7 @@ const AddMoviePage = () => {
                 />
                 <SelectField
                     name="genre"
-                    label="Genre"
+                    label="Genre*"
                     value={formData.genre}
                     onChange={handleOnChange}
                     helperText={error.genre}
@@ -105,18 +101,37 @@ const AddMoviePage = () => {
                     placeholder='eg. "https://example.com/poster.jpg"'
                 />
                 <TextField
+                    type="number"
                     name="year"
                     label="Year"
+                    min="1900"
+                    max="2099"
+                    step="1"
                     value={formData.year}
                     onChange={handleOnChange}
                     placeholder="eg. 1994"
                 />
                 <TextField
+                    type="number"
                     name="runtime"
                     label="Runtime"
+                    min="0"
+                    max="300"
+                    step="5"
                     value={formData.runtime}
                     onChange={handleOnChange}
                     placeholder="eg. 165"
+                />
+                <TextField
+                    type="number"
+                    name="rating"
+                    label="Rating"
+                    min="0"
+                    max="5"
+                    step=".5"
+                    value={formData.rating}
+                    onChange={handleOnChange}
+                    placeholder="eg. 3.5"
                 />
                 <div className="grid grid-cols-2 gap-4">
                     <Button
@@ -130,7 +145,7 @@ const AddMoviePage = () => {
                         color="primary"
                         type="submit"
                         onClick={() => {}}
-                        isDisabled={!!error.title || !!error.genre}
+                        isDisabled={!formData.title || !formData.genre}
                     >
                         Submit
                     </Button>
