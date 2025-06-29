@@ -3,11 +3,13 @@ import type React from 'react';
 type TextFieldProps = {
     label: string;
     type?: 'text' | 'password' | 'email' | 'number';
+    helperText?: string;
 } & React.InputHTMLAttributes<HTMLInputElement>;
 
 export const TextField = ({
     label,
     type = 'text',
+    helperText,
     ...props
 }: TextFieldProps) => (
     <div>
@@ -23,5 +25,8 @@ export const TextField = ({
             type={type}
             {...props}
         />
+        {helperText && (
+            <p className="text-red-600 text-sm mt-1">{helperText}</p>
+        )}
     </div>
 );

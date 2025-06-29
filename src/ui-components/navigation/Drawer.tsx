@@ -1,14 +1,14 @@
 import mwLogo from '@mw/assets/large.png';
 import { RouterPaths } from '@mw/router/routerPaths';
 import clsx from 'clsx';
-import { useState, useTransition } from 'react';
-import { BsArrowLeft, BsArrowRight } from 'react-icons/bs';
-import { NavLink, useLocation } from 'react-router-dom';
+import { BsArrowLeft } from 'react-icons/bs';
+import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 
 export const Drawer = () => {
+    const navigate = useNavigate();
     const { pathname } = useLocation();
-    const [_isPending, startTransition] = useTransition();
-    const [isOpen, setIsOpen] = useState(false);
+
+    const isBackButtonVisible = pathname !== RouterPaths.Root;
 
     return (
         <nav
@@ -17,21 +17,20 @@ export const Drawer = () => {
                 'flex-col',
                 'bg-gray-50',
                 'p-4',
-                { 'w-[130px]': !isOpen },
-                { 'w-[200px]': isOpen },
                 'h-[100%]',
             )}
         >
             <div className={clsx('sticky', 'top-0')}>
                 <span
                     className="flex justify-end font-bold text-zinc-950 cursor-pointer m-5"
-                    onClick={() => startTransition(() => setIsOpen(!isOpen))}
+                    onClick={() => navigate(-1)}
                 >
                     <div className="flex gap-2">
-                        {isOpen && <BsArrowLeft className={clsx('text-2xl')} />}
-                        <p>{isOpen ? 'Close' : 'Open'}</p>
-                        {!isOpen && (
-                            <BsArrowRight className={clsx('text-2xl')} />
+                        {isBackButtonVisible && (
+                            <>
+                                <BsArrowLeft className={clsx('text-2xl')} />
+                                <p>Back</p>
+                            </>
                         )}
                     </div>
                 </span>
