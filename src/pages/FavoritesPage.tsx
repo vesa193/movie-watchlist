@@ -9,6 +9,7 @@ const FavoritesPage = () => {
     return (
         <div className="p-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-4">
             {movies
+                .sort((a, b) => a.title.localeCompare(b.title))
                 .filter((movie) => movie.liked)
                 .map((movie) => (
                     <MovieCard
