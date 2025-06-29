@@ -28,6 +28,7 @@ export const useForm = <T>(intialValues: Partial<T>) => {
             HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
         >,
     ) => {
+        setError({});
         setFormData((prev) => ({
             ...prev,
             [e.target.name]: e.target.value,

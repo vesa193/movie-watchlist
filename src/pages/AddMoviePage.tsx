@@ -1,6 +1,7 @@
 import { useForm } from '@mw/hooks/useForm';
 import { useMovies } from '@mw/hooks/useMovies';
 import type { Movie } from '@mw/types';
+import { Button } from '@mw/ui-components/buttons/Button';
 import { SelectField } from '@mw/ui-components/form-fields/SelectField';
 import { TextAreaField } from '@mw/ui-components/form-fields/TextAreaField';
 import { TextField } from '@mw/ui-components/form-fields/TextField';
@@ -8,18 +9,19 @@ import type React from 'react';
 
 const AddMoviePage = () => {
     const { movies, setMovies } = useMovies();
-    const { formData, error, handleOnChange, handleReset } = useForm<Movie>({
-        id: 0,
-        title: '',
-        genre: 'Action',
-        status: '',
-        year: 0,
-        poster: '',
-        rating: 0,
-        runtime: 0,
-        liked: false,
-        synopsis: '',
-    });
+    const { formData, error, handleOnChange, handleReset, validate } =
+        useForm<Movie>({
+            id: 0,
+            title: '',
+            genre: 'Action',
+            status: '',
+            year: 0,
+            poster: '',
+            rating: 0,
+            runtime: 0,
+            liked: false,
+            synopsis: '',
+        });
 
     const handleOnSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -36,10 +38,18 @@ const AddMoviePage = () => {
             synopsis: formData.synopsis ?? '',
         };
 
-        const updatedMovies = [...movies, createdMovie];
-        localStorage.setItem('movies', JSON.stringify(updatedMovies));
-        setMovies(updatedMovies);
-        handleReset();
+        validate('title', createdMovie.title);
+        validate('genre', createdMovie.genre);
+
+        error.title && alert(error.title);
+        error.genre && alert(error.genre);
+
+        if (!error.title && !error.genre) {
+            const updatedMovies = [...movies, createdMovie];
+            localStorage.setItem('movies', JSON.stringify(updatedMovies));
+            setMovies(updatedMovies);
+            handleReset();
+        }
     };
 
     return (
@@ -109,19 +119,21 @@ const AddMoviePage = () => {
                     placeholder="eg. 165"
                 />
                 <div className="grid grid-cols-2 gap-4">
-                    <button
-                        className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded"
+                    <Button
+                        color="tertiary"
                         type="button"
                         onClick={handleReset}
                     >
                         Reset
-                    </button>
-                    <button
-                        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                    </Button>
+                    <Button
+                        color="primary"
                         type="submit"
+                        onClick={() => {}}
+                        isDisabled={!!error.title || !!error.genre}
                     >
                         Submit
-                    </button>
+                    </Button>
                 </div>
             </form>
         </div>
