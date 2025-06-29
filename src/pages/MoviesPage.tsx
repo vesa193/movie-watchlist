@@ -1,41 +1,60 @@
 import { useLikeMovie } from '@mw/features/movie/hooks/useLikeMovie';
 import { MovieCard } from '@mw/features/movie/MovieCard';
 import { useMovies } from '@mw/hooks/useMovies';
+import type { Movie } from '@mw/types';
 import { Button } from '@mw/ui-components/buttons/Button';
 import { SelectField } from '@mw/ui-components/form-fields/SelectField';
 import { TextField } from '@mw/ui-components/form-fields/TextField';
 import type React from 'react';
-import { useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 
 const MoviesPage = () => {
     const { movies, isLoadingMovies, setMovies } = useMovies();
     const { handleOnLike } = useLikeMovie(movies, setMovies);
-    const [filteredMovies, setFilteredMovies] = useState(movies);
-
-    const [filters, setFilters] = useState<{ title?: string; status?: string }>(
-        {
-            title: '',
-            status: '',
-        },
-    );
+    const [filteredMovies, setFilteredMovies] = useState<Movie[]>([]);
     const [searchParams, setSearchParams] = useSearchParams(
         window.location.search,
     );
-
-    const filteredMoviesList = movies.filter(
-        (movie) =>
-            (filters?.title ? movie.title.includes(filters.title) : true) &&
-            (filters?.status !== 'all' && filters?.status === 'watched'
-                ? movie.status === 'Watched'
-                : movie.status === 'Planned'),
+    const [filters, setFilters] = useState<{ title?: string; status?: string }>(
+        {
+            title: searchParams.get('title') ?? '',
+            status: searchParams.get('status') ?? 'all',
+        },
     );
 
-    const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        setSearchParams(filters);
+    const filteredMoviesList = movies?.filter(
+        (movie) =>
+            !!(
+                (filters?.title
+                    ? movie.title
+                          .toLowerCase()
+                          .includes(filters.title.toLowerCase().trim())
+                    : false) &&
+                (filters?.status !== 'all' && filters?.status === 'watched'
+                    ? movie.status === 'Watched'
+                    : movie.status === 'Planned')
+            ),
+    );
+
+    useEffect(() => {
         setFilteredMovies(filteredMoviesList);
-    };
+    }, []);
+
+    const handleSearch = useCallback(
+        (e: React.FormEvent<HTMLFormElement>) => {
+            e.preventDefault();
+            const newSearchParams = new URLSearchParams(filters);
+
+            if (newSearchParams.get('title') === '') {
+                newSearchParams.delete('title');
+            }
+
+            setSearchParams(newSearchParams);
+            setFilteredMovies(filteredMoviesList);
+        },
+        [searchParams, setSearchParams, filteredMoviesList],
+    );
 
     if (isLoadingMovies) {
         return <div>Loading...</div>;
@@ -44,6 +63,8 @@ const MoviesPage = () => {
     if (movies.length === 0) {
         return <div>No movies found</div>;
     }
+
+    console.log('filters', filters);
 
     return (
         <>
@@ -60,6 +81,7 @@ const MoviesPage = () => {
                             searchParams.delete('title');
                             setSearchParams(searchParams);
                         }
+
                         setFilters({ ...filters, title: e.target.value });
                     }}
                 />
@@ -75,22 +97,24 @@ const MoviesPage = () => {
                     <option value="watched">Watched</option>
                     <option value="planned">Planned</option>
                 </SelectField>
-                <Button
-                    color="tertiary"
-                    onClick={() => {
-                        setSearchParams({});
-                        setFilters({});
-                        setFilteredMovies(movies);
-                    }}
-                >
-                    Clear
-                </Button>
-                <Button type="submit" onClick={() => {}}>
-                    Search
-                </Button>
+                <div className="flex gap-4">
+                    <Button
+                        color="tertiary"
+                        onClick={() => {
+                            setSearchParams({});
+                            setFilters({});
+                            setFilteredMovies(movies);
+                        }}
+                    >
+                        Clear
+                    </Button>
+                    <Button type="submit" onClick={() => {}}>
+                        Search
+                    </Button>
+                </div>
             </form>
             <div className="p-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
-                {(filteredMovies || movies)
+                {(filteredMovies?.length > 0 ? filteredMovies : movies)
                     .sort((a, b) => a.title.localeCompare(b.title))
                     .map((movie) => (
                         <MovieCard
