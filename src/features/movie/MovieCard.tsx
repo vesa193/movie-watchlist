@@ -1,6 +1,7 @@
 import type { Movie } from '@mw/types';
 import clsx from 'clsx';
 import { Link } from 'react-router-dom';
+import placeholderPoster from '@mw/assets/placeholder_poster.jpeg';
 
 type MovieCardProps = Movie & {
     isLikeVisible?: boolean;
@@ -29,7 +30,7 @@ export const MovieCard = ({
             <Link to={`/movie/${id}`}>
                 <img
                     alt={title}
-                    src={poster}
+                    src={poster || placeholderPoster}
                     className="aspect-square w-full rounded-md bg-gray-200 object-cover group-hover:opacity-75 lg:aspect-auto lg:h-100"
                 />
             </Link>

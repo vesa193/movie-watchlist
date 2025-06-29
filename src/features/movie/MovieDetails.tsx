@@ -1,5 +1,6 @@
 import type { Movie } from '@mw/types';
 import clsx from 'clsx';
+import placeholderPoster from '@mw/assets/placeholder_poster.jpeg';
 
 type MovieDetailsProps = {
     movie: Movie;
@@ -11,7 +12,7 @@ export const MovieDetails = ({ movie, onLike }: MovieDetailsProps) => (
         <h4 className="text-2xl font-mono mb-4">{movie?.title}</h4>
         <img
             className="shadow-lg"
-            src={movie?.poster}
+            src={movie?.poster || placeholderPoster}
             width={400}
             alt={movie?.title}
         />
