@@ -72,11 +72,11 @@ export const MovieCard = ({
                         {status}
                     </p>
                     <p className="flex gap-2 items-center mt-1 text-sm text-gray-500 dark:text-gray-200">
-                        <p>{runtime && formatTime(runtime)}</p>
+                        <span>{runtime && formatTime(runtime)}</span>
                         <BsStopwatchFill />
                     </p>
                     <p className="flex gap-2 items-center mt-1 text-sm text-gray-500 dark:text-gray-200">
-                        <p>{rating}</p>
+                        <span>{rating}</span>
                         <BsStarFill />
                     </p>
                 </div>

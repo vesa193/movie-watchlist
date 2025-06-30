@@ -13,7 +13,7 @@ export const useMovies = () => {
         fetch('../data/movies.json')
             .then((res) => res.json())
             .then((moviesList: Movie[]) => {
-                localStorage.setItem('movies', JSON.stringify([moviesList]));
+                localStorage.setItem('movies', JSON.stringify(moviesList));
                 setMovies(moviesList);
             })
             .catch((err: Error) => setError(err.message))

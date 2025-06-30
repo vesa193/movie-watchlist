@@ -55,6 +55,7 @@ const MoviesPage = () => {
         (e: React.FormEvent<HTMLFormElement>) => {
             e.preventDefault();
             const newSearchParams = new URLSearchParams(filters);
+            localStorage.log('newSearchParams', newSearchParams.toString());
 
             if (newSearchParams.get('title') === '') {
                 newSearchParams.delete('title');

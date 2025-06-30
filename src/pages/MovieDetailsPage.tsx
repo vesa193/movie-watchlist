@@ -31,7 +31,6 @@ const MovieDetailsPage = () => {
 
     const handleOnSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        console.log('submit', formData);
         const updatedMovies = movies.map((movieItem) =>
             movieItem.id === Number(movieId)
                 ? {
