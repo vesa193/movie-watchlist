@@ -75,6 +75,7 @@ const MovieDetailsPage = () => {
                         value={formData.title}
                         onChange={handleOnChange}
                         helperText={error.title}
+                        placeholder="eg. The Matrix"
                     />
                     <SelectField
                         name="genre"
@@ -110,6 +111,7 @@ const MovieDetailsPage = () => {
                         label="Poster"
                         value={formData.poster}
                         onChange={handleOnChange}
+                        placeholder='eg. "https://images.unsplash.com/photo-1511485977113-f34c92461ad9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60"'
                     />
                 </form>
             )}

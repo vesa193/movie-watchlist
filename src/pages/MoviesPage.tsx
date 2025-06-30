@@ -87,8 +87,6 @@ const MoviesPage = () => {
 
     const isSearchParamsExist = searchParams.size > 0;
 
-    console.log('movies', movies);
-
     return (
         <>
             <form
@@ -107,6 +105,7 @@ const MoviesPage = () => {
 
                         setFilters({ ...filters, title: e.target.value });
                     }}
+                    placeholder='eg. "The Matrix"'
                 />
                 <SelectField
                     name="status"
