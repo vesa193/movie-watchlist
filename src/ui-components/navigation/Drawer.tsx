@@ -1,4 +1,5 @@
 import mwLogo from '@mw/assets/large.png';
+import ThemeToggle from '@mw/features/common/ThemeToggle';
 import { RouterPaths } from '@mw/router/routerPaths';
 import clsx from 'clsx';
 import { BsArrowLeft } from 'react-icons/bs';
@@ -16,13 +17,14 @@ export const Drawer = () => {
                 'flex',
                 'flex-col',
                 'bg-gray-50',
+                'dark:bg-gray-700',
                 'p-4',
                 'h-[100%]',
             )}
         >
             <div className={clsx('sticky', 'top-0')}>
                 <span
-                    className="flex justify-end font-bold text-zinc-950 cursor-pointer m-5"
+                    className="flex justify-end font-bold text-zinc-950 dark:text-gray-50 cursor-pointer m-5"
                     onClick={() => navigate(-1)}
                 >
                     <div className="flex gap-2">
@@ -56,6 +58,8 @@ export const Drawer = () => {
                         'mt-4',
                         'text-sm',
                         'text-zinc-950',
+                        'dark:text-gray-50',
+                        'mb-10',
                     )}
                 >
                     <NavLink to={RouterPaths.Root}>
@@ -82,6 +86,7 @@ export const Drawer = () => {
                         </li>
                     </NavLink>
                 </ul>
+                <ThemeToggle />
             </div>
         </nav>
     );

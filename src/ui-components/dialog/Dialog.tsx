@@ -16,7 +16,7 @@ export const Dialog = ({ isOpen, onClose, children }: DialogProps) => {
                 onClick={onClose}
             />
 
-            <div className="relative bg-white rounded-lg shadow-xl p-6 max-w-sm w-full z-10">
+            <div className="relative bg-white dark:bg-gray-800 rounded-lg shadow-xl p-6 max-w-sm w-full z-10">
                 {children}
             </div>
         </div>

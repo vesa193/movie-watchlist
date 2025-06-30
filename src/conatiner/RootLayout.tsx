@@ -11,7 +11,7 @@ export const RootLayout = () => {
     return (
         <div className={clsx('grid', 'grid-cols-[auto_1fr]', 'h-screen')}>
             <Drawer />
-            <main className="p-6">
+            <main className="p-6 bg-white dark:bg-gray-800">
                 {isRootPath && <Navigation />}
                 <Outlet />
             </main>

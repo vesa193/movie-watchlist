@@ -22,6 +22,7 @@ const MoviesPage = () => {
             status: searchParams.get('status') ?? 'all',
         },
     );
+    const isSearchParamsExist = searchParams.size > 0;
 
     const filteredMoviesList = movies?.filter((movie) => {
         let result = true;
@@ -84,8 +85,6 @@ const MoviesPage = () => {
     if (movies.length === 0) {
         return <div>No movies found</div>;
     }
-
-    const isSearchParamsExist = searchParams.size > 0;
 
     return (
         <>

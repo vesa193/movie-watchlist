@@ -113,6 +113,24 @@ const MovieDetailsPage = () => {
                         onChange={handleOnChange}
                         placeholder='eg. "https://images.unsplash.com/photo-1511485977113-f34c92461ad9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60"'
                     />
+                    <div className="grid grid-cols-2 gap-4">
+                        <Button
+                            color="tertiary"
+                            onClick={() => setIsEditing(false)}
+                            isDisabled={!isEditing}
+                        >
+                            Cancel
+                        </Button>
+                        <Button
+                            type="submit"
+                            form="movie-form"
+                            color="primary"
+                            onClick={() => {}}
+                            isDisabled={!isEditing || isDisabledSave}
+                        >
+                            Save
+                        </Button>
+                    </div>
                 </form>
             )}
             {!isEditing && (
@@ -134,31 +152,10 @@ const MovieDetailsPage = () => {
                 </div>
             )}
 
-            {isEditing && (
-                <div className="grid grid-cols-2 gap-4">
-                    <Button
-                        color="tertiary"
-                        onClick={() => setIsEditing(false)}
-                        isDisabled={!isEditing}
-                    >
-                        Cancel
-                    </Button>
-                    <Button
-                        type="submit"
-                        form="movie-form"
-                        color="primary"
-                        onClick={() => {}}
-                        isDisabled={!isEditing || isDisabledSave}
-                    >
-                        Save
-                    </Button>
-                </div>
-            )}
             <Dialog isOpen={isDeleting} onClose={() => setIsDeleting(false)}>
-                <h4 className="mb-4">
+                <h4 className="mb-4 text-gray-900 dark:text-gray-50">
                     Are you sure you want to delete{' '}
-                    <span className="font-semibold">{movie?.title}</span>
-                    <br /> this movie?
+                    <span className="font-semibold">{movie?.title}</span> movie?
                 </h4>
                 <div className="grid grid-cols-2 gap-4">
                     <Button

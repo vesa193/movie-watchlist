@@ -2,6 +2,7 @@ import type { Movie } from '@mw/types';
 import clsx from 'clsx';
 import { Link } from 'react-router-dom';
 import placeholderPoster from '@mw/assets/placeholder_poster.jpeg';
+import { useTheme } from '@mw/context/ThemeContext';
 
 type MovieCardProps = Movie & {
     isLikeVisible?: boolean;
@@ -21,6 +22,7 @@ export const MovieCard = ({
     isLikeVisible = true,
     onLike,
 }: MovieCardProps) => {
+    const { theme } = useTheme();
     const handleOnLike = () => {
         onLike(id);
     };
@@ -36,36 +38,41 @@ export const MovieCard = ({
             </Link>
             {isLikeVisible && (
                 <div
-                    className="flex justify-end p-1 m-0 cursor-pointer"
+                    className="flex justify-end p-1 m-0 cursor-pointer text-gray-500 dark:text-white"
                     onClick={handleOnLike}
                 >
-                    {!liked ? 'Like 🖤' : 'Unlike 💙'}
+                    {!liked
+                        ? `Like ${theme === 'dark' ? '🤍' : '🖤'}`
+                        : 'Unlike 💙'}
                 </div>
             )}
             <div className="mt-4 flex justify-between">
                 <div>
-                    <h4 className="text-sm text-black-700 line-clamp-2 font-mono font-semibold">
+                    <h4 className="text-sm text-gray-700 dark:text-white line-clamp-2 font-mono font-semibold">
                         {title}
                     </h4>
-                    <p className="mt-1 text-sm text-gray-500">{genre}</p>
-                    <p className="mt-1 text-sm text-gray-500">{year}</p>
+                    <p className="mt-1 text-sm text-gray-500 dark:text-gray-200">
+                        {genre}
+                    </p>
+                    <p className="mt-1 text-sm text-gray-500 dark:text-gray-200">
+                        {year}
+                    </p>
                 </div>
                 <div className="flex flex-col items-end">
                     <p
-                        className={clsx(
-                            'text-sm',
-                            'font-medium',
-                            'text-gray-900',
-                            {
-                                'text-green-600': status === 'Watched',
-                                'text-yellow-600': status === 'Planned',
-                            },
-                        )}
+                        className={clsx('text-sm', 'font-medium', {
+                            'text-green-600': status === 'Watched',
+                            'dark:text-green-300': status === 'Watched',
+                            'text-yellow-600': status === 'Planned',
+                            'dark:text-yellow-300': status === 'Planned',
+                        })}
                     >
                         {status}
                     </p>
-                    <p className="mt-1 text-sm text-gray-500">{`${runtime && Math.floor(runtime / 60)}h`}</p>
-                    <p className="mt-1 text-sm text-gray-500">{rating}</p>
+                    <p className="mt-1 text-sm text-gray-500 dark:text-gray-200">{`${runtime && Math.floor(runtime / 60)}h`}</p>
+                    <p className="mt-1 text-sm text-gray-500 dark:text-gray-200">
+                        {rating}
+                    </p>
                 </div>
             </div>
         </div>
