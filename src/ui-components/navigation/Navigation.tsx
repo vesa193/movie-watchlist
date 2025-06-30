@@ -1,4 +1,3 @@
-import ThemeToggle from '@mw/features/common/ThemeToggle';
 import { RouterPaths } from '@mw/router/routerPaths';
 import { Button } from '@mw/ui-components/buttons/Button';
 import { BsPlusLg } from 'react-icons/bs';
