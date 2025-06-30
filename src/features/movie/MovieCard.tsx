@@ -2,7 +2,9 @@ import type { Movie } from '@mw/types';
 import clsx from 'clsx';
 import { Link } from 'react-router-dom';
 import placeholderPoster from '@mw/assets/placeholder_poster.jpeg';
+import { BsStopwatchFill, BsStarFill } from 'react-icons/bs';
 import { useTheme } from '@mw/context/ThemeContext';
+import { formatTime } from '@mw/utils';
 
 type MovieCardProps = Movie & {
     isLikeVisible?: boolean;
@@ -69,9 +71,13 @@ export const MovieCard = ({
                     >
                         {status}
                     </p>
-                    <p className="mt-1 text-sm text-gray-500 dark:text-gray-200">{`${runtime && Math.floor(runtime / 60)}h`}</p>
-                    <p className="mt-1 text-sm text-gray-500 dark:text-gray-200">
-                        {rating}
+                    <p className="flex gap-2 items-center mt-1 text-sm text-gray-500 dark:text-gray-200">
+                        <p>{runtime && formatTime(runtime)}</p>
+                        <BsStopwatchFill />
+                    </p>
+                    <p className="flex gap-2 items-center mt-1 text-sm text-gray-500 dark:text-gray-200">
+                        <p>{rating}</p>
+                        <BsStarFill />
                     </p>
                 </div>
             </div>

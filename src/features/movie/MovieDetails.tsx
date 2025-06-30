@@ -2,6 +2,8 @@ import type { Movie } from '@mw/types';
 import clsx from 'clsx';
 import placeholderPoster from '@mw/assets/placeholder_poster.jpeg';
 import { useTheme } from '@mw/context/ThemeContext';
+import { formatTime } from '@mw/utils';
+import { BsStarFill, BsStopwatchFill } from 'react-icons/bs';
 
 type MovieDetailsProps = {
     movie: Movie;
@@ -60,9 +62,13 @@ export const MovieDetails = ({ movie, onLike }: MovieDetailsProps) => {
                     </p>
                 </div>
                 <div className="flex flex-col items-end">
-                    <p className="mt-1 text-sm text-gray-500 dark:text-gray-50">{`${movie?.runtime && Math.floor(movie.runtime / 60)}h`}</p>
-                    <p className="mt-1 text-sm text-gray-500 dark:text-gray-50">
+                    <p className="flex gap-2 items-center mt-1 text-sm text-gray-500 dark:text-gray-50">
+                        {movie?.runtime && formatTime(movie.runtime)}
+                        <BsStopwatchFill />
+                    </p>
+                    <p className="flex gap-2 items-center mt-1 text-sm text-gray-500 dark:text-gray-50">
                         {movie?.rating}
+                        <BsStarFill />
                     </p>
                 </div>
             </div>

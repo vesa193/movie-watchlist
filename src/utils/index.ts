@@ -1,2 +1,5 @@
-export const delayFunction = (callback: Function, ms: number) =>
-    setTimeout(callback, ms);
+export const formatTime = (minutes: number) => {
+    const hours = Math.floor(minutes / 60);
+    const remainingMinutes = minutes % 60;
+    return `${hours}h ${remainingMinutes}min`;
+};

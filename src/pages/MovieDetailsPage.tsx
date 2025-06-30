@@ -1,12 +1,13 @@
 import { useLikeMovie } from '@mw/features/movie/hooks/useLikeMovie';
 import { useMovie } from '@mw/features/movie/hooks/useMovie';
 import { MovieDetails } from '@mw/features/movie/MovieDetails';
-import { MovieEditForm } from '@mw/features/MovieEditForm';
+import { MovieEditForm } from '@mw/features/movie/MovieEditForm';
 import { useForm } from '@mw/hooks/useForm';
 import { useMovies } from '@mw/hooks/useMovies';
 import type { Movie } from '@mw/types';
 import { Button } from '@mw/ui-components/buttons/Button';
 import { Dialog } from '@mw/ui-components/dialog/Dialog';
+import { ToastBox } from '@mw/ui-components/dialog/ToastBox';
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 
@@ -24,6 +25,8 @@ const MovieDetailsPage = () => {
     });
     const [isEditing, setIsEditing] = useState(false);
     const [isDeleting, setIsDeleting] = useState(false);
+    const [isUpdated, setIsUpdated] = useState(false);
+    const [isDeleted, setIsDeleted] = useState(false);
     const isDisabledSave = !formData.title || !formData.genre;
 
     const handleOnSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -41,7 +44,7 @@ const MovieDetailsPage = () => {
         localStorage.setItem('movies', JSON.stringify(updatedMovies));
         setMovies(updatedMovies);
         setIsEditing(false);
-        alert('Movie updated successfully');
+        setIsUpdated(true);
     };
 
     const handleDeleteMovie = () => {
@@ -51,15 +54,39 @@ const MovieDetailsPage = () => {
         localStorage.setItem('movies', JSON.stringify(updatedMovies));
         setMovies(updatedMovies);
         setIsDeleting(false);
-        alert('Movie deleted successfully');
+        setIsDeleted(true);
     };
 
     if (!movieId || !movie) {
-        return <p>Movie not found!</p>;
+        return (
+            <>
+                <p className="text-gray-500 dark:text-gray-50">
+                    Movie not found!
+                </p>
+                {isDeleted && (
+                    <ToastBox
+                        isOpen={isDeleted}
+                        variant="success"
+                        onClose={() => setIsDeleted(false)}
+                    >
+                        {isDeleted && 'Movie deleted successfully!'}
+                    </ToastBox>
+                )}
+            </>
+        );
     }
 
     return (
         <div className="grid justify-center">
+            {isUpdated && (
+                <ToastBox
+                    isOpen={isUpdated}
+                    variant="success"
+                    onClose={() => setIsUpdated(false)}
+                >
+                    {isUpdated && 'Movie updated successfully!'}
+                </ToastBox>
+            )}
             {!isEditing && <MovieDetails movie={movie} onLike={handleOnLike} />}
             {isEditing && (
                 <MovieEditForm

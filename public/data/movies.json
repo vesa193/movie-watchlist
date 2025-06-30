@@ -1,6 +1,6 @@
 [
     {
-        "id": 0,
+        "id": 1,
         "title": "The Shawshank Redemption",
         "genre": "Drama",
         "status": "Watched",
@@ -12,7 +12,7 @@
         "synopsis": "Two imprisoned men bond over a number of years, finding solace and eventual redemption through acts of common decency."
     },
     {
-        "id": 1,
+        "id": 2,
         "title": "Boys in the Hood",
         "genre": "Action",
         "status": "Watched",
@@ -24,7 +24,7 @@
         "synopsis": "A group of young criminals plan a bank robbery and escape with their hostages."
     },
     {
-        "id": 2,
+        "id": 3,
         "title": "The Dark Knight Rises",
         "genre": "Action",
         "status": "Planned",
@@ -36,7 +36,7 @@
         "synopsis": "The Dark Knight of Gotham City begins his war on crime with his first major enemy being the Joker."
     },
     {
-        "id": 3,
+        "id": 4,
         "title": "Inception",
         "genre": "Action",
         "status": "Planned",
@@ -48,7 +48,7 @@
         "synopsis": "A thief who steals corporate secrets through use of dream-sharing technology is given the inverse task of planting an idea into the mind of a C.E.O."
     },
     {
-        "id": 4,
+        "id": 5,
         "title": "Interstellar",
         "genre": "Adventure",
         "status": "Planned",
@@ -60,7 +60,7 @@
         "synopsis": "A team of explorers travel through a wormhole in space in an attempt to ensure humanity's survival."
     },
     {
-        "id": 5,
+        "id": 6,
         "title": "The Matrix",
         "genre": "Action",
         "status": "Planned",
@@ -72,7 +72,7 @@
         "synopsis": "A computer hacker learns from mysterious rebels about the true nature of his reality and his role in it."
     },
     {
-        "id": 6,
+        "id": 7,
         "title": "Shutter island",
         "genre": "Thriller",
         "status": "Planned",
@@ -84,7 +84,7 @@
         "synopsis": "A medical student and a rebel leader struggle during a high school class trial in the 1970s."
     },
     {
-        "id": 7,
+        "id": 8,
         "title": "The Wolf of Wall Street",
         "genre": "Crime",
         "status": "Planned",
@@ -96,7 +96,7 @@
         "synopsis": "Based on the true story of Jordan Belfort, from his rise to a wealthy stock-broker living the high life to his fall involving crime, corruption and the federal government."
     },
     {
-        "id": 8,
+        "id": 9,
         "title": "Like Mike",
         "genre": "Comedy",
         "status": "Watched",
