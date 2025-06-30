@@ -53,10 +53,6 @@ const MoviesPage = () => {
         return result;
     });
 
-    const isFiltered =
-        searchParams.get('title') ||
-        searchParams.get('status')?.toLowerCase() === 'all';
-
     const handleSearch = useCallback(
         (e: React.FormEvent<HTMLFormElement>) => {
             e.preventDefault();
