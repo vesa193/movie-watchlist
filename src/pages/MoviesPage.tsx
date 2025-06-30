@@ -23,19 +23,36 @@ const MoviesPage = () => {
         },
     );
 
-    const filteredMoviesList = movies?.filter(
-        (movie) =>
-            !!(
-                (filters?.title
-                    ? movie.title
-                          .toLowerCase()
-                          .includes(filters.title.toLowerCase().trim())
-                    : false) &&
-                (filters?.status !== 'all' && filters?.status === 'watched'
-                    ? movie.status === 'Watched'
-                    : movie.status === 'Planned')
-            ),
-    );
+    const filteredMoviesList = movies?.filter((movie) => {
+        let result = false;
+
+        if (filters.title && filters.status !== 'all') {
+            result =
+                movie.title
+                    .toLowerCase()
+                    .includes(filters.title.toLowerCase()) &&
+                movie.status.toLowerCase() === filters.status?.toLowerCase();
+            console.log('result', result);
+            return result;
+        }
+
+        if (filters.title) {
+            result = movie.title
+                .toLowerCase()
+                .includes(filters.title.toLowerCase());
+        }
+
+        if (filters.status !== 'all') {
+            result =
+                movie.status.toLowerCase() === filters.status?.toLowerCase();
+        }
+
+        return result;
+    });
+
+    const isFiltered =
+        !!searchParams.get('title') ||
+        searchParams.get('status')?.toLowerCase() !== 'all';
 
     useEffect(() => {
         setFilteredMovies(filteredMoviesList);
@@ -53,7 +70,7 @@ const MoviesPage = () => {
             setSearchParams(newSearchParams);
             setFilteredMovies(filteredMoviesList);
         },
-        [searchParams, setSearchParams, filteredMoviesList],
+        [filters, setSearchParams, filteredMoviesList],
     );
 
     if (isLoadingMovies) {
@@ -63,8 +80,6 @@ const MoviesPage = () => {
     if (movies.length === 0) {
         return <div>No movies found</div>;
     }
-
-    console.log('filters', filters);
 
     return (
         <>
@@ -102,7 +117,7 @@ const MoviesPage = () => {
                         color="tertiary"
                         onClick={() => {
                             setSearchParams({});
-                            setFilters({});
+                            setFilters({ title: '', status: 'all' });
                             setFilteredMovies(movies);
                         }}
                     >
@@ -114,15 +129,29 @@ const MoviesPage = () => {
                 </div>
             </form>
             <div className="p-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
-                {(filteredMovies?.length > 0 ? filteredMovies : movies)
-                    .sort((a, b) => a.title.localeCompare(b.title))
-                    .map((movie) => (
-                        <MovieCard
-                            key={movie.id}
-                            {...movie}
-                            onLike={handleOnLike}
-                        />
-                    ))}
+                {isFiltered && filteredMovies
+                    ? filteredMovies
+                          .sort((a, b) => a.title.localeCompare(b.title))
+                          .map((movie) => (
+                              <MovieCard
+                                  key={movie.id}
+                                  {...movie}
+                                  onLike={handleOnLike}
+                              />
+                          ))
+                    : movies
+                          .sort((a, b) => a.title.localeCompare(b.title))
+                          .map((movie) => (
+                              <MovieCard
+                                  key={movie.id}
+                                  {...movie}
+                                  onLike={handleOnLike}
+                              />
+                          ))}
+
+                {filteredMovies.length === 0 && (
+                    <div className="col-span-4">No movies found</div>
+                )}
             </div>
         </>
     );
