@@ -161,17 +161,6 @@ const MoviesPage = () => {
                               />
                           ))}
 
-                {/* {filteredMovies?.length === 0 &&
-                    movies.length > 0 &&
-                    movies
-                        .sort((a, b) => a.title.localeCompare(b.title))
-                        .map((movie) => (
-                            <MovieCard
-                                key={movie.id}
-                                {...movie}
-                                onLike={handleOnLike}
-                            />
-                        ))} */}
                 {isSearchParamsExist && filteredMovies?.length === 0 && (
                     <p>No movies found</p>
                 )}
