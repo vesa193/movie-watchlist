@@ -51,11 +51,13 @@ const MoviesPage = () => {
     });
 
     const isFiltered =
-        !!searchParams.get('title') ||
-        searchParams.get('status')?.toLowerCase() !== 'all';
+        searchParams.get('title') ||
+        searchParams.get('status')?.toLowerCase() === 'all';
 
     useEffect(() => {
-        setFilteredMovies(filteredMoviesList);
+        if (isFiltered) {
+            setFilteredMovies(filteredMoviesList);
+        }
     }, []);
 
     const handleSearch = useCallback(
@@ -129,29 +131,33 @@ const MoviesPage = () => {
                 </div>
             </form>
             <div className="p-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
-                {isFiltered && filteredMovies
-                    ? filteredMovies
-                          .sort((a, b) => a.title.localeCompare(b.title))
-                          .map((movie) => (
-                              <MovieCard
-                                  key={movie.id}
-                                  {...movie}
-                                  onLike={handleOnLike}
-                              />
-                          ))
-                    : movies
-                          .sort((a, b) => a.title.localeCompare(b.title))
-                          .map((movie) => (
-                              <MovieCard
-                                  key={movie.id}
-                                  {...movie}
-                                  onLike={handleOnLike}
-                              />
-                          ))}
+                {isFiltered &&
+                    filteredMovies.length > 0 &&
+                    filteredMovies
+                        .sort((a, b) => a.title.localeCompare(b.title))
+                        .map((movie) => (
+                            <MovieCard
+                                key={movie.id}
+                                {...movie}
+                                onLike={handleOnLike}
+                            />
+                        ))}
 
-                {filteredMovies.length === 0 && (
-                    <div className="col-span-4">No movies found</div>
+                {isFiltered && filteredMovies.length === 0 && (
+                    <div>No movie found</div>
                 )}
+
+                {!isFiltered &&
+                    movies.length > 0 &&
+                    movies
+                        .sort((a, b) => a.title.localeCompare(b.title))
+                        .map((movie) => (
+                            <MovieCard
+                                key={movie.id}
+                                {...movie}
+                                onLike={handleOnLike}
+                            />
+                        ))}
             </div>
         </>
     );
