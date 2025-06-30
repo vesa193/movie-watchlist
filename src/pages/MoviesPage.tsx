@@ -24,27 +24,30 @@ const MoviesPage = () => {
     );
 
     const filteredMoviesList = movies?.filter((movie) => {
-        let result = false;
+        let result = true;
 
-        if (filters.title && filters.status !== 'all') {
+        if (filters?.title && filters?.status?.toLowerCase() !== 'all') {
             result =
                 movie.title
                     .toLowerCase()
-                    .includes(filters.title.toLowerCase()) &&
-                movie.status.toLowerCase() === filters.status?.toLowerCase();
+                    .includes(filters?.title!.toLowerCase()) &&
+                movie.status.toLowerCase() === filters?.status?.toLowerCase();
             console.log('result', result);
             return result;
         }
 
-        if (filters.title) {
+        if (filters?.title) {
             result = movie.title
                 .toLowerCase()
-                .includes(filters.title.toLowerCase());
+                .includes(filters?.title!.toLowerCase());
+            return result;
         }
 
-        if (filters.status !== 'all') {
+        if (filters?.status?.toLowerCase() !== 'all') {
+            console.log('movie.status', filters?.status);
             result =
-                movie.status.toLowerCase() === filters.status?.toLowerCase();
+                movie.status.toLowerCase() === filters?.status?.toLowerCase();
+            return result;
         }
 
         return result;
@@ -54,16 +57,11 @@ const MoviesPage = () => {
         searchParams.get('title') ||
         searchParams.get('status')?.toLowerCase() === 'all';
 
-    useEffect(() => {
-        if (isFiltered) {
-            setFilteredMovies(filteredMoviesList);
-        }
-    }, []);
-
     const handleSearch = useCallback(
         (e: React.FormEvent<HTMLFormElement>) => {
             e.preventDefault();
             const newSearchParams = new URLSearchParams(filters);
+            console.log('newSearchParams', newSearchParams.toString());
 
             if (newSearchParams.get('title') === '') {
                 newSearchParams.delete('title');
@@ -75,6 +73,14 @@ const MoviesPage = () => {
         [filters, setSearchParams, filteredMoviesList],
     );
 
+    useEffect(() => {
+        if (filteredMoviesList?.length > 0) {
+            setFilteredMovies(filteredMoviesList);
+        }
+
+        setFilteredMovies([]);
+    }, []);
+
     if (isLoadingMovies) {
         return <div>Loading...</div>;
     }
@@ -82,6 +88,10 @@ const MoviesPage = () => {
     if (movies.length === 0) {
         return <div>No movies found</div>;
     }
+
+    const isSearchParamsExist = searchParams.size > 0;
+
+    console.log('movies', movies);
 
     return (
         <>
@@ -131,23 +141,27 @@ const MoviesPage = () => {
                 </div>
             </form>
             <div className="p-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
-                {isFiltered &&
-                    filteredMovies.length > 0 &&
-                    filteredMovies
-                        .sort((a, b) => a.title.localeCompare(b.title))
-                        .map((movie) => (
-                            <MovieCard
-                                key={movie.id}
-                                {...movie}
-                                onLike={handleOnLike}
-                            />
-                        ))}
+                {isSearchParamsExist
+                    ? filteredMovies
+                          .sort((a, b) => a.title.localeCompare(b.title))
+                          .map((movie) => (
+                              <MovieCard
+                                  key={movie.id}
+                                  {...movie}
+                                  onLike={handleOnLike}
+                              />
+                          ))
+                    : movies
+                          .sort((a, b) => a.title.localeCompare(b.title))
+                          .map((movie) => (
+                              <MovieCard
+                                  key={movie.id}
+                                  {...movie}
+                                  onLike={handleOnLike}
+                              />
+                          ))}
 
-                {isFiltered && filteredMovies.length === 0 && (
-                    <div>No movie found</div>
-                )}
-
-                {!isFiltered &&
+                {/* {filteredMovies?.length === 0 &&
                     movies.length > 0 &&
                     movies
                         .sort((a, b) => a.title.localeCompare(b.title))
@@ -157,7 +171,14 @@ const MoviesPage = () => {
                                 {...movie}
                                 onLike={handleOnLike}
                             />
-                        ))}
+                        ))} */}
+                {isSearchParamsExist && filteredMovies?.length === 0 && (
+                    <p>No movies found</p>
+                )}
+
+                {!isSearchParamsExist && movies.length === 0 && (
+                    <p>No movies found</p>
+                )}
             </div>
         </>
     );
