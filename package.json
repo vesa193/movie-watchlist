@@ -1,5 +1,10 @@
 {
     "name": "movie-watchlist",
+    "author": {
+        "name": "Lazar",
+        "email": "veselinovic93@hotmail.com",
+        "url": "https://github.com/vesa193"
+    },
     "private": true,
     "version": "0.0.0",
     "type": "module",
